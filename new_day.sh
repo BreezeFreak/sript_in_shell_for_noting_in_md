@@ -14,11 +14,25 @@ if [ $1 ] && [ $1 = "push" ]; then
         read -p "Tomorrow is not weekend, are you sure to continue pushing? [y/n] " input
         case $input in
                 ""|[yY]*)
+                        # pushing the notes but this script stays
                         cd "$HOME_DIR"
                         cp ~/.zshrc ~/.bashrc "$HOME_DIR"/shell/
                         git add "$HOME_DIR" 
                         git commit -m "week $WORKING_WEEK"
                         git push
+
+                        cd "$HOME_DIR"/tools
+                        if [ -z $(git status | grep "working directory clean") ]; then
+                            git add .
+
+                            read -p "note tool has been modified, enter the commit message: " msg
+                            if [ -z "$msg" ]; then
+                                msg="NOTHING"
+                            fi
+
+                            git commit -m "$msg"
+                            git push
+                        fi
                         ;;
                 # [nN]*)
                 #         exit
