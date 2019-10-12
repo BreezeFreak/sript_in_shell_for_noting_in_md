@@ -6,6 +6,13 @@ HOME_DIR=~/notes/work/notes_shanqu
 
 NOTES_DIR=$HOME_DIR/working\ notes
 
+
+# TODO: findout todos in all files. currently just for "working notes"
+# TODO: function in shell script. do the work! don't waste time in this shit
+cd "$NOTES_DIR"
+grep --exclude=TODOS.md -rEI -n "TODO|FIXME" . 2>/dev/null | sort -n -t ' ' -k 2 | awk '{split($0,a,":");split($2,b,":"); print "["a[3]"]("$1"%20"b[1]"#L"a[2]")\n"}' >| TODOS.md
+
+
 LAST_WEEK=$(tree "$HOME_DIR" | grep -P "week \d+" | sed "s/.*week \([0-9]*\).*/\1/g" | sort -rn -t " " -k 1 | head -1)
 
 # quick pushing, especially Firday
@@ -14,18 +21,19 @@ if [ $1 ] && [ $1 = "push" ]; then
         read -p "Tomorrow is not weekend, are you sure to continue pushing? [y/n] " input
         case $input in
                 ""|[yY]*)
-                        # pushing the notes but this script stays
+                        # pushing the notes
                         cd "$HOME_DIR"
                         cp ~/.zshrc ~/.bashrc "$HOME_DIR"/shell/
                         git add "$HOME_DIR" 
-                        git commit -m "week $WORKING_WEEK"
+                        git commit -m "week $LAST_WEEK"
                         git push
 
+                        # pushing this script
                         cd "$HOME_DIR"/tools
                         if [ -z $(git status | grep "working directory clean") ]; then
                             git add .
 
-                            read -p "note tool has been modified, enter the commit message: " msg
+                            read -p "\nNote tool has been modified, enter the commit message: " msg
                             if [ -z "$msg" ]; then
                                 msg="NOTHING"
                             fi
@@ -33,6 +41,7 @@ if [ $1 ] && [ $1 = "push" ]; then
                             git commit -m "$msg"
                             git push
                         fi
+
                         ;;
                 # [nN]*)
                 #         exit
@@ -113,3 +122,5 @@ code -r "$WEEK_DIR"/$(date +%m-%d).md
 sleep 1
 guake toggle
 # TODO: auto add ./TODO.md into every day's new md file
+# TODO: what if i forgot to note focusing on work (bull shit)
+# TODO: everyday adding flag of UNDONE manually? so the next day i `note`, copy the UNDONE content to the new note
