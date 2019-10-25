@@ -36,14 +36,18 @@ push_script() {
     fi
 }
 
+push_together() {
+    push_script
+    push_note
+}
+
 # quick pushing, especially Firday
 if [ $1 ] && [ $1 = "push" ]; then
     if [ ! $(date +%w) = 5 ]; then
         read -p "Tomorrow is not weekend, are you sure to continue pushing? [y/n] " input
         case $input in
                 ""|[yY]*)
-                        push_script
-                        push_note
+                        push_together
                         ;;
                 # [nN]*)
                 #         exit
@@ -53,8 +57,7 @@ if [ $1 ] && [ $1 = "push" ]; then
                 #         ;;
         esac
     else
-        push_script
-        push_note
+        push_together
     fi
     exit 0
 fi
