@@ -30,6 +30,9 @@ push_script() {
         if [ -z "$msg" ]; then
             msg="NOTHING"
         fi
+        # TODO:
+        # https://stackoverflow.com/a/5082055/12254646
+        # msg="$(cat new_day.sh | grep "COMMIT:" | awk '{ s = ""; for (i = 3; i <= NF; i++) s = s $i " "; print s }' | tail -1)"
 
         git commit -m "$msg"
         git push
@@ -59,6 +62,16 @@ if [ $1 ] && [ $1 = "push" ]; then
     else
         push_together
     fi
+    exit 0
+fi
+
+# testing
+if [ $1 ] && [ $1 = "test" ]; then
+    cd "$HOME_DIR"/tools
+    a= $(cat new_day.sh | grep "COMMIT:" | awk '{ s = ""; for (i = 3; i <= NF; i++) s = s $i " "; print s }' | tail -1)
+    echo $a
+    sed -i "s/$a/NOTHING/g" new_day.sh
+
     exit 0
 fi
 
@@ -118,7 +131,14 @@ if [ -z "$LAST_DAY" ]; then
             new_day
         fi
     fi
-    new_week
+    # if last week is a empty folder
+    files=$(shopt -s nullglob dotglob; echo "$LAST_WEEK"/*)
+    if (( ${#files} ))
+    then
+        new_week
+    else 
+         new_day
+    fi
 fi
 
 if [ ! -f "$WEEK_DIR"/$(date +%m-%d).md ]; then
@@ -129,3 +149,8 @@ else
 fi
 
 # TODO: everyday adding flag of UNDONE manually? so the next day i `note`, copy the UNDONE content to the new note
+
+# ----- commit field
+# COMMIT: add: 'commit field' && check if week folder exists
+# COMMIT: add: 'commit field' && check if week folder exists
+$a
