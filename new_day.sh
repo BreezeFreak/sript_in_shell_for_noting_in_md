@@ -80,8 +80,8 @@ WEEK_DIR=$NOTES_DIR/week\ $LAST_WEEK
 end_of_script() {
     code -r "$WEEK_DIR"/$(date +%m-%d).md
 
-    sleep 1
-    guake toggle
+    # sleep 1
+    # guake toggle
     exit 0
 }
 
