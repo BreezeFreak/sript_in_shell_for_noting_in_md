@@ -132,12 +132,14 @@ if [ -z "$LAST_DAY" ]; then
         fi
     fi
     # if last week is a empty folder
-    files=$(shopt -s nullglob dotglob; echo "$LAST_WEEK"/*)
-    if (( ${#files} ))
+    # files=$(shopt -s nullglob dotglob; echo "$LAST_WEEK"/*)
+    # if (( ${#files} ))
+    # https://stackoverflow.com/a/20456797/12254646
+    if find "$LAST_WEEK" -mindepth 1 -print -quit 2>/dev/null | grep -q .
     then
-        new_week
+        new_day
     else 
-         new_day
+        new_week
     fi
 fi
 
@@ -153,4 +155,3 @@ fi
 # ----- commit field
 # COMMIT: add: 'commit field' && check if week folder exists
 # COMMIT: add: 'commit field' && check if week folder exists
-$a
