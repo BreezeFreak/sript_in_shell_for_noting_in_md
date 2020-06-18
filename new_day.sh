@@ -2,6 +2,10 @@
 
 # noticing that double quotes were no needed for string const, but execution
 HOME_DIR=~/notes/work/notes_shanqu
+
+# other dirs
+PROJECT_GIN_UTILS_DIR=~/workspace/toolbox/simulator-api/src/v1d0/gin-utils
+PROJECT_GIN_UTILS_CONFIG=~/workspace/toolbox/simulator-api/.git/modules/src/v1d0/gin-utils/config
 # HOME_DIR=/home/joe/notes/work/notes_shanqu/working\ notes
 
 NOTES_DIR=$HOME_DIR/working\ notes
@@ -39,9 +43,17 @@ push_script() {
     fi
 }
 
+push_gin_utils() {
+    sed -i 's/gitlab.ghzs.com:oam/github.com:BreezeFreak/g' "$PROJECT_GIN_UTILS_CONFIG" >> "$PROJECT_GIN_UTILS_CONFIG"
+    cd "$PROJECT_GIN_UTILS_DIR"
+    git push
+    sed -i 's/github.com:BreezeFreak/gitlab.ghzs.com:oam/g' "$PROJECT_GIN_UTILS_CONFIG" >> "$PROJECT_GIN_UTILS_CONFIG"
+}
+
 push_together() {
     push_script
     push_note
+    push_gin_utils
 }
 
 # quick pushing, especially Firday
