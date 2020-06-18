@@ -17,6 +17,7 @@ LAST_WEEK=$(tree "$HOME_DIR" | grep -P "week \d+" | sed "s/.*week \([0-9]*\).*/\
 
 # pushing the notes
 push_note() {
+    echo "pushing notes ..."
     cd "$HOME_DIR"
     cp ~/.zshrc ~/.bashrc "$HOME_DIR"/shell/
     git add "$HOME_DIR" 
@@ -26,6 +27,7 @@ push_note() {
 
 # pushing this script
 push_script() {
+    echo "pushing the script it self ..."
     cd "$HOME_DIR"/tools
     if [ -z $(git status | grep "working directory clean") ]; then
         git add .
@@ -44,6 +46,7 @@ push_script() {
 }
 
 push_gin_utils() {
+    echo "pushing gin-utils..."
     sed -i 's/gitlab.ghzs.com:oam/github.com:BreezeFreak/g' "$PROJECT_GIN_UTILS_CONFIG" >> "$PROJECT_GIN_UTILS_CONFIG"
     cd "$PROJECT_GIN_UTILS_DIR"
     git push
