@@ -4,8 +4,9 @@
 HOME_DIR=~/notes/work/notes_shanqu
 
 # other dirs
-PROJECT_GIN_UTILS_DIR=~/workspace/toolbox/simulator-api/src/v1d0/gin-utils
-PROJECT_GIN_UTILS_CONFIG=~/workspace/game/game-wiki/.git/modules/src/v1d0/gin-utils/config
+PROJECT_DIR="~/workspace/game/game-wiki"
+PROJECT_GIN_UTILS_DIR=$PROJECT_DIR+"/src/v1d0/gin-utils"
+PROJECT_GIN_UTILS_CONFIG=$PROJECT_DIR+"/.git/modules/src/v1d0/gin-utils/config"
 # HOME_DIR=/home/joe/notes/work/notes_shanqu/working\ notes
 
 NOTES_DIR=$HOME_DIR/working\ notes
