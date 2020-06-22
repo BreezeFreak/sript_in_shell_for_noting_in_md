@@ -4,9 +4,9 @@
 HOME_DIR=~/notes/work/notes_shanqu
 
 # other dirs
-PROJECT_DIR="~/workspace/game/game-wiki"
-PROJECT_GIN_UTILS_DIR=$PROJECT_DIR+"/src/v1d0/gin-utils"
-PROJECT_GIN_UTILS_CONFIG=$PROJECT_DIR+"/.git/modules/src/v1d0/gin-utils/config"
+PROJECT_DIR=~/workspace/game/game-wiki
+PROJECT_GIN_UTILS_DIR=$PROJECT_DIR/src/v1d0/gin-utils
+PROJECT_GIN_UTILS_CONFIG=$PROJECT_DIR/.git/modules/src/v1d0/gin-utils/config
 # HOME_DIR=/home/joe/notes/work/notes_shanqu/working\ notes
 
 NOTES_DIR=$HOME_DIR/working\ notes
@@ -18,7 +18,7 @@ LAST_WEEK=$(tree "$HOME_DIR" | grep -P "week \d+" | sed "s/.*week \([0-9]*\).*/\
 
 # pushing the notes
 push_note() {
-    echo "pushing notes ..."
+    echo "[pushing notes ...]"
     cd "$HOME_DIR"
     cp ~/.zshrc ~/.bashrc "$HOME_DIR"/shell/
     git add "$HOME_DIR" 
@@ -28,7 +28,7 @@ push_note() {
 
 # pushing this script
 push_script() {
-    echo "pushing the script it self ..."
+    echo "[pushing the script it self ...]"
     cd "$HOME_DIR"/tools
     if [ -z $(git status | grep "working directory clean") ]; then
         git add .
@@ -47,7 +47,7 @@ push_script() {
 }
 
 push_gin_utils() {
-    echo "pushing gin-utils..."
+    echo "[pushing gin-utils...]"
     sed -i 's/gitlab.ghzs.com:oam/github.com:BreezeFreak/g' "$PROJECT_GIN_UTILS_CONFIG" >> "$PROJECT_GIN_UTILS_CONFIG"
     cd "$PROJECT_GIN_UTILS_DIR"
     git push
