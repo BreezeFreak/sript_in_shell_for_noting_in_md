@@ -56,6 +56,7 @@ push_gin_utils() {
 }
 
 push_off_work_timmer() {
+    echo "[pushing off_work_timmer.sh ...]"
     cd "$SCRIPT_DIR"
     git add .
     git commit -m "update"
