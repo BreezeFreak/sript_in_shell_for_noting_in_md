@@ -57,6 +57,7 @@ push_gin_utils() {
 
 push_off_work_timmer() {
     echo "[pushing off_work_timmer.sh ...]"
+    cp ~/temp/off_work_timer.sh ~/temp/off_work_timmer/off_work_timer.sh
     cd "$SCRIPT_DIR"
     git add .
     git commit -m "update"
